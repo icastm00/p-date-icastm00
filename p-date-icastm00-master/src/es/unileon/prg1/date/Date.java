@@ -265,12 +265,50 @@ public class Date {
 	}
 	
 	public String getMonthsLeft(){
+		Date aux = new Date(this);
+		StringBuffer monthsLeft = new StringBuffer();
+		
+		try{
+			for (int i = this.month + 1; i <= 12; i++){
+				aux.setMonth(i);
+				monthsLeft.append(aux.getMonthName() + " ");
+			}
+		} catch (DateException e){
+			System.err.println(e.getMessage());
+		}
+		return monthsLeft.toString();
 	}
 	
 	public String getDaysLeftOfMonth(){
+		Date aux = tomorrow();
+		StringBuffer daysLeft = new StringBuffer();
+		
+		try{
+			for (int i = aux.getDay(); isDayRight(i); i++) {
+				aux.setDay(i);
+				daysLeft.append(aux.toString() + " ");
+			}
+		} catch (DateException e){
+			System.err.println(e.getMessage());
+		}
+		return daysLeft.toString();
 	}
 	
 	public String getMonthsSameDays(){
+		Date aux = new Date(this);
+		StringBuffer months = new StringBuffer();
+
+		try{
+			for ( int i = 1; i <= 12; i++) {
+				aux.setMonth(i);
+				if ( aux.daysOfMonth() == this.daysOfMonth() ) {
+					months.append(aux.getMonthName() + " ");
+				}
+			}
+		} catch (DateException e){
+			System.err.println(e.getMessage());
+		}
+		return months.toString();
 	}
 
 	public int daysPast(){
